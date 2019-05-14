@@ -3,9 +3,11 @@ using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RealTimeMessenger.Hubs;
 using Swashbuckle.AspNetCore.Swagger;
 using SwissKnifeDotNetCore.Data;
 using SwissKnifeDotNetCore.Persistence;
@@ -32,7 +34,18 @@ namespace SwissKnifeDotNetCore
         {
             services.AddDbContext<AppDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DatabaseString")));
-            
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
+
+            services.AddSignalR();
+
             services.AddMvc();
 
             services.AddSwaggerGen(c =>
@@ -51,15 +64,56 @@ namespace SwissKnifeDotNetCore
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
-            app.UseStatusCodePages();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseMvc();
+            app.UseSpaStaticFiles();
+            app.UseCors("CorsPolicy");
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chat");
+            });
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action=Index}/{id?}");
+            });
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
