@@ -3,6 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'chat',
+    loadChildren: './modules/chat/chat.module#ChatModule'
+  },
+  {
     path: '',
     loadChildren: './modules/home/home.module#HomeModule'
   },
