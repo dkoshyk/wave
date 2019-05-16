@@ -30,14 +30,15 @@ namespace SwissKnifeDotNetCore.Persistence
                 .OnDelete(DeleteBehavior.Restrict)
                 );
 
+            modelBuilder.Entity<Product>(entity =>
+                entity.ToTable("Products")
+                );
+
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Poll> Polls { get; set; }
         public DbSet<PollOption> PollOptions { get; set; }
-
-
-
-
+        public DbSet<Product> Products { get; set; }
     }
 }

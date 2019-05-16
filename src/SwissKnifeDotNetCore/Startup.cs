@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RealTimeMessenger.Hubs;
 using Swashbuckle.AspNetCore.Swagger;
-using SwissKnifeDotNetCore.Data;
 using SwissKnifeDotNetCore.Persistence;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace SwissKnifeDotNetCore
 {
@@ -24,6 +23,7 @@ namespace SwissKnifeDotNetCore
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", true, true)
                 .AddEnvironmentVariables();
+                
 
             Configuration = builder.Build();
         }
@@ -95,19 +95,12 @@ namespace SwissKnifeDotNetCore
                 routes.MapHub<ChatHub>("/chat");
             });
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-            });
-
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "../AngularApp";
 
                 if (env.IsDevelopment())
                 {
@@ -122,9 +115,16 @@ namespace SwissKnifeDotNetCore
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.RoutePrefix = ""; // serve the UI at root
+                //c.RoutePrefix = "swagger"; // serve the UI at root
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
-                c.DisplayOperationId();
+                //c.DisplayOperationId();
+            });
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action=Index}/{id?}");
             });
         }
     }

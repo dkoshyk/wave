@@ -4,13 +4,13 @@ using RealTimeMessenger.DataStorage;
 using RealTimeMessenger.Helpers;
 using RealTimeMessenger.Hubs;
 
-namespace RealTimeMessenger.Controllers
+namespace SwissKnifeDotNetCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ChatController : ControllerBase
     {
-        private IHubContext<ChatHub> _hub;
+        private readonly IHubContext<ChatHub> _hub;
 
         public ChatController(IHubContext<ChatHub> hub)
         {
