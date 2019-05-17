@@ -1,11 +1,12 @@
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
 
 namespace SwissKnifeDotNetCore.Controllers
 {
-    [Route("/products")]
-    public class ProductController : Controller
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
+    [ApiController]
+    public class ProductsController : ControllerBase
     {
         /// <summary>
         /// Creates a <paramref name="product"/>
@@ -22,8 +23,8 @@ namespace SwissKnifeDotNetCore.Controllers
         /// </remarks>
         /// <param name="product"></param>
         /// <returns></returns>
-        [HttpPost(Name = "CreateProduct")]
-        public Product Create([FromBody, Required] Product product)
+        [Microsoft.AspNetCore.Mvc.HttpPost(Name = "CreateProduct")]
+        public Product Create([Microsoft.AspNetCore.Mvc.FromBody, Required] Product product)
         {
             return product;
         }
@@ -33,7 +34,7 @@ namespace SwissKnifeDotNetCore.Controllers
         /// </summary>
         /// <param name="keywords">A list of search terms</param>
         /// <returns></returns>
-        [HttpGet(Name = "SearchProducts")]
+        [Microsoft.AspNetCore.Mvc.HttpGet(Name = "SearchProducts")]
         public IEnumerable<Product> Get([FromQuery(Name = "kw")] string keywords = "foobar")
         {
             return new[]
@@ -48,10 +49,14 @@ namespace SwissKnifeDotNetCore.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("{id}", Name = "GetProduct")]
-        public Product Get(int id)
+        [Microsoft.AspNetCore.Mvc.HttpGet("{id:int:min(0)}", Name = "GetProduct")]
+        public IActionResult Get(int id)
         {
-            return new Product {Id = id, Description = "A product"};
+            //return new Product {Id = id, Description = "A product"};
+
+            var product = new Product() { Id = 1, Description = "1", Status = ProductStatus.All };
+
+            return new OkResult();
         }
 
         /// <summary>
@@ -59,8 +64,8 @@ namespace SwissKnifeDotNetCore.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="product"></param>
-        [HttpPut("{id}", Name = "UpdateProduct")]
-        public void Update(int id, [FromBody, Required] Product product)
+        [Microsoft.AspNetCore.Mvc.HttpPut("{id}", Name = "UpdateProduct")]
+        public void Update(int id, [Microsoft.AspNetCore.Mvc.FromBody, Required] Product product)
         {
         }
 
@@ -69,8 +74,8 @@ namespace SwissKnifeDotNetCore.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="updates"></param>
-        [HttpPatch("{id}", Name = "PatchProduct")]
-        public void Patch(int id, [FromBody, Required] IDictionary<string, object> updates)
+        [Microsoft.AspNetCore.Mvc.HttpPatch("{id}", Name = "PatchProduct")]
+        public void Patch(int id, [Microsoft.AspNetCore.Mvc.FromBody, Required] IDictionary<string, object> updates)
         {
         }
 
@@ -78,7 +83,7 @@ namespace SwissKnifeDotNetCore.Controllers
         /// Deletes a specific product
         /// </summary>
         /// <param name="id"></param>
-        [HttpDelete("{id}", Name = "DeleteProduct")]
+        [Microsoft.AspNetCore.Mvc.HttpDelete("{id}", Name = "DeleteProduct")]
         public void Delete(int id)
         {
         }
