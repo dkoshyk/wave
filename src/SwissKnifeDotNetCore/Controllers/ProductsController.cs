@@ -1,6 +1,13 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+using SwissKnifeDotNetCore.Commands;
+using SwissKnifeDotNetCore.Data.Entities;
+using SwissKnifeDotNetCore.Persistence;
+using SwissKnifeDotNetCore.Queries;
 
 namespace SwissKnifeDotNetCore.Controllers
 {
@@ -8,6 +15,17 @@ namespace SwissKnifeDotNetCore.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private readonly IQueriesService _queries;
+        private readonly ICommandService _command;
+        private readonly AppDbContext _context;
+
+        public ProductsController(IQueriesService queries, ICommandService command, AppDbContext context)
+        {
+            _queries = queries ?? throw new ArgumentNullException(nameof(queries));
+            _command = command ?? throw new ArgumentNullException(nameof(command));
+            _context = context;
+        }
+
         /// <summary>
         /// Creates a <paramref name="product"/>
         /// </summary>
@@ -23,10 +41,12 @@ namespace SwissKnifeDotNetCore.Controllers
         /// </remarks>
         /// <param name="product"></param>
         /// <returns></returns>
-        [Microsoft.AspNetCore.Mvc.HttpPost(Name = "CreateProduct")]
-        public Product Create([Microsoft.AspNetCore.Mvc.FromBody, Required] Product product)
+        [HttpPost(Name = "CreateProduct")]
+        public async Task<IActionResult> Create([FromBody, Required] Product product)
         {
-            return product;
+            await _command.SaveProduct(product.Name);
+
+            return NoContent();
         }
 
         /// <summary>
@@ -35,13 +55,11 @@ namespace SwissKnifeDotNetCore.Controllers
         /// <param name="keywords">A list of search terms</param>
         /// <returns></returns>
         [Microsoft.AspNetCore.Mvc.HttpGet(Name = "SearchProducts")]
-        public IEnumerable<Product> Get([FromQuery(Name = "kw")] string keywords = "foobar")
+        public async Task<IActionResult> Get()
         {
-            return new[]
-            {
-                new Product {Id = 1, Description = "A product"},
-                new Product {Id = 2, Description = "Another product"},
-            };
+            //return Ok(_context.Products.ToList());
+
+            return Ok((await _queries.GetAll()).ToList());
         }
 
         /// <summary>
@@ -54,7 +72,7 @@ namespace SwissKnifeDotNetCore.Controllers
         {
             //return new Product {Id = id, Description = "A product"};
 
-            var product = new Product() { Id = 1, Description = "1", Status = ProductStatus.All };
+            var product = new Product() { Id = "2", Description = "1" };
 
             return new OkResult();
         }
@@ -86,31 +104,6 @@ namespace SwissKnifeDotNetCore.Controllers
         [Microsoft.AspNetCore.Mvc.HttpDelete("{id}", Name = "DeleteProduct")]
         public void Delete(int id)
         {
-        }
-
-        public enum ProductStatus
-        {
-            All = 0,
-            OutOfStock = 1,
-            InStock = 2
-        }
-
-        /// <summary>
-        /// Represents a product
-        /// </summary>
-        public class Product
-        {
-            /// <summary>
-            /// Uniquely identifies the product
-            /// </summary>
-            public int Id { get; set; }
-
-            /// <summary>
-            /// Describes the product
-            /// </summary>
-            public string Description { get; set; }
-
-            public ProductStatus Status { get; set; }
         }
     }
 }

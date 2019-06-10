@@ -11,6 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Windows.Input;
+using SwissKnifeDotNetCore.Commands;
+using SwissKnifeDotNetCore.Queries;
 
 namespace SwissKnifeDotNetCore
 {
@@ -33,6 +36,11 @@ namespace SwissKnifeDotNetCore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IQueriesService, QueriesService>(x =>
+                new QueriesService(Configuration.GetConnectionString("DatabaseString")));
+
+            services.AddScoped<ICommandService, CommandService>();
+
             services.AddDbContext<AppDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DatabaseString")));
 
