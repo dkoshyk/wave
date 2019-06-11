@@ -3,13 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using SwissKnife.API.Persistence;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using SwissKnife.Infrastructure;
 
-namespace SwissKnifeDotNetCore.Migrations
+namespace SwissKnife.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190516121739_InitProducts")]
-    partial class InitProducts
+    [Migration("20190611144128_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,7 +20,7 @@ namespace SwissKnifeDotNetCore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("SwissKnifeDotNetCore.Data.Entities.Poll", b =>
+            modelBuilder.Entity("SwissKnife.API.Data.Entities.Poll", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,7 +35,7 @@ namespace SwissKnifeDotNetCore.Migrations
                     b.ToTable("Polls");
                 });
 
-            modelBuilder.Entity("SwissKnifeDotNetCore.Data.Entities.PollOption", b =>
+            modelBuilder.Entity("SwissKnife.API.Data.Entities.PollOption", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,10 +54,11 @@ namespace SwissKnifeDotNetCore.Migrations
                     b.ToTable("PollOptions");
                 });
 
-            modelBuilder.Entity("SwissKnifeDotNetCore.Data.Entities.Product", b =>
+            modelBuilder.Entity("SwissKnife.Domain.AggregatesModel.ProductAggregate.Product", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description");
 
@@ -67,9 +69,9 @@ namespace SwissKnifeDotNetCore.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("SwissKnifeDotNetCore.Data.Entities.PollOption", b =>
+            modelBuilder.Entity("SwissKnife.API.Data.Entities.PollOption", b =>
                 {
-                    b.HasOne("SwissKnifeDotNetCore.Data.Entities.Poll", "Poll")
+                    b.HasOne("SwissKnife.API.Data.Entities.Poll", "Poll")
                         .WithMany("PollOptions")
                         .HasForeignKey("PollId")
                         .OnDelete(DeleteBehavior.Restrict);

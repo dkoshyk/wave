@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
-using SwissKnife.API.Commands;
+using SwissKnife.API.Application.Commands;
+using SwissKnife.API.Application.Queries;
 using SwissKnife.API.Hubs;
-using SwissKnife.API.Persistence;
-using SwissKnife.API.Queries;
+using SwissKnife.Infrastructure;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace SwissKnife.API
 {

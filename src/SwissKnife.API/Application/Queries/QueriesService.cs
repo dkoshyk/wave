@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Dapper;
+using SwissKnife.Domain.AggregatesModel.ProductAggregate;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapper;
-using SwissKnife.API.Data.Entities;
 
-namespace SwissKnife.API.Queries
+namespace SwissKnife.API.Application.Queries
 {
     public class QueriesService : IQueriesService
     {

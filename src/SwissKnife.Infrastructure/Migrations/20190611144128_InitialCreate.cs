@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
-namespace SwissKnifeDotNetCore.Migrations
+namespace SwissKnife.Infrastructure.Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -13,10 +11,10 @@ namespace SwissKnifeDotNetCore.Migrations
                 name: "Polls",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Active = table.Column<bool>(type: "bit", nullable: false),
-                    QuestionText = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    QuestionText = table.Column<string>(nullable: true),
+                    Active = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -24,14 +22,28 @@ namespace SwissKnifeDotNetCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PollOptions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Answers = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PollId = table.Column<int>(type: "int", nullable: false),
-                    Vote = table.Column<int>(type: "int", nullable: false)
+                    Answers = table.Column<string>(nullable: true),
+                    Vote = table.Column<int>(nullable: false),
+                    PollId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,6 +66,9 @@ namespace SwissKnifeDotNetCore.Migrations
         {
             migrationBuilder.DropTable(
                 name: "PollOptions");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Polls");

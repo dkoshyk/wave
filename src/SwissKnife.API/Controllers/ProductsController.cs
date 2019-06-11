@@ -1,13 +1,13 @@
+using Microsoft.AspNetCore.Mvc;
+using SwissKnife.API.Application.Commands;
+using SwissKnife.API.Application.Queries;
+using SwissKnife.Domain.AggregatesModel.ProductAggregate;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using SwissKnife.API.Commands;
-using SwissKnife.API.Data.Entities;
-using SwissKnife.API.Persistence;
-using SwissKnife.API.Queries;
+using SwissKnife.Infrastructure;
 
 namespace SwissKnife.API.Controllers
 {
@@ -70,7 +70,7 @@ namespace SwissKnife.API.Controllers
         {
             //return new Product {Id = id, Description = "A product"};
 
-            var product = new Product {Id = "2", Description = "1"};
+            var product = new Product { Description = "1"};
 
             return new OkResult();
         }

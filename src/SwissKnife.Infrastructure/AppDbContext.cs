@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using SwissKnife.API.Data.Entities;
+using SwissKnife.Domain.AggregatesModel.ProductAggregate;
 
-namespace SwissKnife.API.Persistence
+namespace SwissKnife.Infrastructure
 {
     /// <summary>
     ///     Application Context
