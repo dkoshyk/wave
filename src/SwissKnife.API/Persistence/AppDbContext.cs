@@ -1,16 +1,20 @@
 using Microsoft.EntityFrameworkCore;
-using SwissKnifeDotNetCore.Data.Entities;
+using SwissKnife.API.Data.Entities;
 
-namespace SwissKnifeDotNetCore.Persistence
+namespace SwissKnife.API.Persistence
 {
     /// <summary>
-    /// Application Context
+    ///     Application Context
     /// </summary>
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
+
+        public DbSet<Poll> Polls { get; set; }
+        public DbSet<PollOption> PollOptions { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //        {
@@ -21,24 +25,20 @@ namespace SwissKnifeDotNetCore.Persistence
         {
             modelBuilder.Entity<Poll>(entity =>
                 entity.ToTable("Polls")
-                );
+            );
 
             modelBuilder.Entity<PollOption>(entity =>
                 entity.HasOne(x => x.Poll)
-                .WithMany(x => x.PollOptions)
-                .HasForeignKey(x => x.PollId)
-                .OnDelete(DeleteBehavior.Restrict)
-                );
+                    .WithMany(x => x.PollOptions)
+                    .HasForeignKey(x => x.PollId)
+                    .OnDelete(DeleteBehavior.Restrict)
+            );
 
             modelBuilder.Entity<Product>(entity =>
                 entity.ToTable("Products")
-                );
+            );
 
             base.OnModelCreating(modelBuilder);
         }
-
-        public DbSet<Poll> Polls { get; set; }
-        public DbSet<PollOption> PollOptions { get; set; }
-        public DbSet<Product> Products { get; set; }
     }
 }

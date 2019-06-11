@@ -1,4 +1,4 @@
-﻿namespace SwissKnifeDotNetCore.Data.Entities
+﻿namespace SwissKnife.API.Data.Entities
 {
     public class Product
     {

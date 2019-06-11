@@ -1,19 +1,17 @@
-using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace SwissKnifeDotNetCore.Controllers
+namespace SwissKnife.API.Controllers
 {
     /// <inheritdoc />
     /// <summary>
-    /// Swagger Docs
+    ///     Swagger Docs
     /// </summary>
     //[SwaggerResponse(HttpStatusCode.NotFound, "Could not find the person", typeof(ErrorResponse))]
     public class HomeController : Controller
     {
         // GET
         /// <summary>
-        /// Return view
+        ///     Return view
         /// </summary>
         /// <returns>View result</returns>
         [HttpGet]
@@ -21,20 +19,20 @@ namespace SwissKnifeDotNetCore.Controllers
         {
             return View();
         }
-        
+
         /// <summary>
-        /// Get item
+        ///     Get item
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Ok</returns>
         [HttpGet]
         public IActionResult GetItem(int id)
         {
-            return Ok(new { item = id });
+            return Ok(new {item = id});
         }
 
         /// <summary>
-        /// Fake post
+        ///     Fake post
         /// </summary>
         /// <returns>Ok</returns>
         [HttpPost]
@@ -42,9 +40,9 @@ namespace SwissKnifeDotNetCore.Controllers
         {
             return Ok();
         }
-        
+
         /// <summary>
-        /// Bad requests
+        ///     Bad requests
         /// </summary>
         /// <returns>Bad</returns>
         [HttpGet]

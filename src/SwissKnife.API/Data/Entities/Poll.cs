@@ -1,14 +1,9 @@
 using System.Collections.Generic;
 
-namespace SwissKnifeDotNetCore.Data.Entities
+namespace SwissKnife.API.Data.Entities
 {
     public class Poll
     {
-        public Poll()
-        {
-            //PollOptions = new HashSet<PollOption>();
-        }
-        
         public int Id { get; set; }
         public string QuestionText { get; set; }
         public bool Active { get; set; }

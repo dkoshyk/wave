@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
-namespace RealTimeMessenger.Hubs
+namespace SwissKnife.API.Hubs
 {
     public class ChatHub : Hub
     {
-        public async Task BroadcastChatData(int data) => await Clients.All.SendAsync("broadcastchatdata", data);
+        public async Task BroadcastChatData(int data)
+        {
+            await Clients.All.SendAsync("broadcastchatdata", data);
+        }
     }
 }

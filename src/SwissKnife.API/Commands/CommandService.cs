@@ -1,9 +1,9 @@
-﻿using SwissKnifeDotNetCore.Data.Entities;
-using SwissKnifeDotNetCore.Persistence;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using SwissKnife.API.Data.Entities;
+using SwissKnife.API.Persistence;
 
-namespace SwissKnifeDotNetCore.Commands
+namespace SwissKnife.API.Commands
 {
     public class CommandService : ICommandService
     {
@@ -16,7 +16,7 @@ namespace SwissKnifeDotNetCore.Commands
 
         public async Task SaveProduct(string name)
         {
-            var product = new Product() { Id = Guid.NewGuid().ToString(), Name = name };
+            var product = new Product {Id = Guid.NewGuid().ToString(), Name = name};
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
         }

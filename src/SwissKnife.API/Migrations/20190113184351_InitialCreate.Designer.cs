@@ -3,14 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
-using SwissKnifeDotNetCore.Persistence;
-using System;
+using SwissKnife.API.Persistence;
 
 namespace SwissKnifeDotNetCore.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(AppDbContext))]  
     [Migration("20190113184351_InitialCreate")]
     partial class InitialCreate
     {

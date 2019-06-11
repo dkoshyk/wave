@@ -1,8 +1,8 @@
-﻿using SwissKnifeDotNetCore.Data.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using SwissKnife.API.Data.Entities;
 
-namespace SwissKnifeDotNetCore.Queries
+namespace SwissKnife.API.Queries
 {
     public interface IQueriesService
     {

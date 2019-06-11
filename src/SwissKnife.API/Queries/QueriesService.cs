@@ -5,9 +5,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using SwissKnifeDotNetCore.Data.Entities;
+using SwissKnife.API.Data.Entities;
 
-namespace SwissKnifeDotNetCore.Queries
+namespace SwissKnife.API.Queries
 {
     public class QueriesService : IQueriesService
     {
@@ -16,9 +16,7 @@ namespace SwissKnifeDotNetCore.Queries
         public QueriesService(string connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))
-            {
                 throw new ArgumentException("message", nameof(connectionString));
-            }
 
             _connectionString = connectionString;
         }
@@ -30,7 +28,7 @@ namespace SwissKnifeDotNetCore.Queries
                 var result = await conn.QueryAsync<Product>("SELECT * FROM Products");
 
                 return result.ToList();
-            }        
+            }
         }
     }
 }

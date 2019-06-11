@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace SwissKnifeDotNetCore.Commands
+namespace SwissKnife.API.Commands
 {
     public interface ICommandService
     {

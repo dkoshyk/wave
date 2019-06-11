@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace RealTimeMessenger.DataStorage
+namespace SwissKnife.API.DataStorage
 {
     public static class DataManager
     {

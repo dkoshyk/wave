@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using RealTimeMessenger.DataStorage;
-using RealTimeMessenger.Helpers;
-using RealTimeMessenger.Hubs;
+using SwissKnife.API.DataStorage;
+using SwissKnife.API.Helpers;
+using SwissKnife.API.Hubs;
 
-namespace SwissKnifeDotNetCore.Controllers
+namespace SwissKnife.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -19,7 +19,7 @@ namespace SwissKnifeDotNetCore.Controllers
 
         public IActionResult Get()
         {
-            var timerManager = new TimerManager(() => 
+            var timerManager = new TimerManager(() =>
                 _hub.Clients.All.SendAsync("transferchatdata", DataManager.GetData()));
 
             return Ok(new {Message = "request completed"});
