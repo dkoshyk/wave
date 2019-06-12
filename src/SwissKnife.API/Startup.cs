@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,8 +38,6 @@ namespace SwissKnife.API
             services.AddScoped<IQueriesService, QueriesService>(x =>
                 new QueriesService(Configuration.GetConnectionString("DatabaseString")));
 
-            services.AddScoped<ICommandService, CommandService>();
-
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DatabaseString")));
 
@@ -50,6 +49,8 @@ namespace SwissKnife.API
                         .AllowAnyHeader()
                         .AllowCredentials());
             });
+
+            services.AddMediatR(typeof(CreateProductCommandHandler).GetTypeInfo().Assembly);
 
             services.AddSignalR();
             services.AddMvc();

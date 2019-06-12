@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using SwissKnife.Infrastructure;
 
 namespace SwissKnife.API.Controllers
@@ -15,34 +16,29 @@ namespace SwissKnife.API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly ICommandService _command;
         private readonly AppDbContext _context;
         private readonly IQueriesService _queries;
+        private readonly IMediator _mediator;
 
-        public ProductsController(IQueriesService queries, ICommandService command, AppDbContext context)
+        public ProductsController(
+            IQueriesService queries, 
+            AppDbContext context,
+            IMediator mediator)
         {
             _queries = queries ?? throw new ArgumentNullException(nameof(queries));
-            _command = command ?? throw new ArgumentNullException(nameof(command));
             _context = context;
+            _mediator = mediator;
         }
 
         /// <summary>
-        ///     Creates a <paramref name="product" />
+        /// 
         /// </summary>
-        /// <remarks>
-        ///     ## Heading 1
-        ///     POST /products
-        ///     {
-        ///     "id": "123",
-        ///     "description": "Some product"
-        ///     }
-        /// </remarks>
-        /// <param name="product"></param>
+        /// <param name="createProductCommand"></param>
         /// <returns></returns>
         [HttpPost(Name = "CreateProduct")]
-        public async Task<IActionResult> Create([FromBody] [Required] Product product)
+        public async Task<IActionResult> Create([FromBody] CreateProductCommand createProductCommand)
         {
-            await _command.SaveProduct(product.Name);
+            await _mediator.Send(createProductCommand);
 
             return NoContent();
         }
