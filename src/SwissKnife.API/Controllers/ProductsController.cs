@@ -26,7 +26,7 @@ namespace SwissKnife.API.Controllers
             IMediator mediator)
         {
             _queries = queries ?? throw new ArgumentNullException(nameof(queries));
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
             _mediator = mediator;
         }
 

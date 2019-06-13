@@ -10,7 +10,8 @@ namespace SwissKnife.API.Application.Commands
         private readonly IMediator _mediator;
         private readonly IProductRepository _productRepository;
 
-        public CreateProductCommandHandler(IMediator mediator, IProductRepository productRepository)
+        public CreateProductCommandHandler(IMediator mediator,
+            IProductRepository productRepository)
         {
             _mediator = mediator;
             _productRepository = productRepository;
@@ -18,7 +19,11 @@ namespace SwissKnife.API.Application.Commands
 
         public async Task<bool> Handle(CreateProductCommand message, CancellationToken cancellationToken)
         {
-            var product = new Product() { Name = message.Name, Description = message.Description };
+            var product = new Product()
+            {
+                Name = message.Name,
+                Description = message.Description
+            };
             _productRepository.Add(product);
 
             return await _productRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);

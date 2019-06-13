@@ -13,6 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using SwissKnife.Domain.AggregatesModel.ProductAggregate;
+using SwissKnife.Infrastructure.Repositories;
 
 namespace SwissKnife.API
 {
@@ -37,6 +39,8 @@ namespace SwissKnife.API
         {
             services.AddScoped<IQueriesService, QueriesService>(x =>
                 new QueriesService(Configuration.GetConnectionString("DatabaseString")));
+
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DatabaseString")));

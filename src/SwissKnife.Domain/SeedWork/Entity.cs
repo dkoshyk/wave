@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using MediatR;
 
 namespace SwissKnife.Domain.SeedWork
@@ -7,7 +9,12 @@ namespace SwissKnife.Domain.SeedWork
     public abstract class Entity
     {
         int? _requestedHashCode;
-        public virtual int Id { get; protected set; }
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public virtual Guid Id { get; protected set; }
+        public virtual DateTime CreatedOn { get; set; }
+        public virtual DateTime LastEditedOn { get; set; }
 
         private List<INotification> _domainEvents;
         public IReadOnlyCollection<INotification> DomainEvents => _domainEvents?.AsReadOnly();
@@ -30,7 +37,7 @@ namespace SwissKnife.Domain.SeedWork
 
         public bool IsTransient()
         {
-            return this.Id == default(Int32);
+            return this.Id == default(Guid);
         }
 
         public override bool Equals(object obj)

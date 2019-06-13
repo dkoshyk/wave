@@ -13,5 +13,11 @@ namespace SwissKnife.Domain.AggregatesModel.ProductAggregate
 
         public string Name { get; set; }
         public string Description { get; set; }
+
+        public Product()
+        {
+            CreatedOn = DateTime.Now;
+            LastEditedOn = DateTime.Now;
+        }
     }
 }
