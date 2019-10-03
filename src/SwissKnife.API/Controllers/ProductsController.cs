@@ -46,7 +46,6 @@ namespace SwissKnife.API.Controllers
         /// <summary>
         ///     Searches the collection of products by description key words
         /// </summary>
-        /// <param name="keywords">A list of search terms</param>
         /// <returns></returns>
         [HttpGet(Name = "SearchProducts")]
         public async Task<IActionResult> Get()

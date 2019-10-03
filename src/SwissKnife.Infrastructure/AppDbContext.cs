@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SwissKnife.API.Data.Entities;
 using SwissKnife.Domain.AggregatesModel.ProductAggregate;
+using SwissKnife.Domain.AggregatesModel.UserAggregate;
 using SwissKnife.Domain.SeedWork;
 
 namespace SwissKnife.Infrastructure
@@ -20,6 +21,8 @@ namespace SwissKnife.Infrastructure
         public DbSet<Poll> Polls { get; set; }
         public DbSet<PollOption> PollOptions { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<WishProduct> WishProducts { get; set; }
+        public DbSet<User> Users { get; set; }
 
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //        {
@@ -41,8 +44,33 @@ namespace SwissKnife.Infrastructure
                     .OnDelete(DeleteBehavior.Restrict)
             );
 
+            
             modelBuilder.Entity<Product>(entity =>
                 entity.ToTable("Products")
+            );
+
+            modelBuilder.Entity<WishProduct>(entity =>
+                entity.ToTable("WishProducts")
+                    .HasOne(x => x.Product)
+                    .WithMany(x => x.WishProducts)
+                    .HasForeignKey(x => x.ProductId)
+                    .OnDelete(DeleteBehavior.Restrict)
+                //TODO: make relationship
+
+            );
+
+            modelBuilder.Entity<WishProduct>(entity =>
+                    entity
+                        .HasOne(x => x.User)
+                        .WithMany(x => x.WishProducts)
+                        .HasForeignKey(x => x.ProductId)
+                        .OnDelete(DeleteBehavior.Restrict)
+                //TODO: make relationship
+
+            );
+
+            modelBuilder.Entity<User>(entity =>
+                entity.ToTable("Users")
             );
 
             base.OnModelCreating(modelBuilder);
