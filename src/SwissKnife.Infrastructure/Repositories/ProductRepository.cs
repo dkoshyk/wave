@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
 using SwissKnife.Domain.AggregatesModel.ProductAggregate;
 using SwissKnife.Domain.SeedWork;
 
@@ -18,6 +19,16 @@ namespace SwissKnife.Infrastructure.Repositories
         public Product Add(Product product)
         {
             return _context.Products.Add(product).Entity;
+        }
+
+        public IEnumerable<Product> GetAll()
+        {
+            return _context.Products;
+        }
+
+        public IQueryable<Product> GetQuery()
+        {
+            return _context.Products;
         }
     }
 }
