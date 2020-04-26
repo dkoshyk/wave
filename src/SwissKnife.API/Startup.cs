@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Microsoft.Extensions.Hosting;
 using SwissKnife.Domain.AggregatesModel.ProductAggregate;
 using SwissKnife.Infrastructure.Repositories;
 
@@ -20,7 +21,7 @@ namespace SwissKnife.API
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -57,21 +58,21 @@ namespace SwissKnife.API
             services.AddMediatR(typeof(CreateProductCommandHandler).GetTypeInfo().Assembly);
 
             services.AddSignalR();
-            services.AddMvc();
-
-            services.AddSwaggerDocumentation();
+            services.AddControllers();
+            //services.AddMvc();
+            //services.AddSwaggerDocumentation();
 
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "../AngularApp/dist"; });
+            //services.AddSpaStaticFiles(configuration => { configuration.RootPath = "../AngularApp/dist"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwaggerDocumentation();
+                //app.UseSwaggerDocumentation();
             }
             else
             {
@@ -82,31 +83,14 @@ namespace SwissKnife.API
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
             app.UseCors("CorsPolicy");
+            app.UseRouting();
 
-            app.UseSignalR(routes => { routes.MapHub<ChatHub>("/chat"); });
-
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    "default",
-                    "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/chat");
             });
-
-            //app.UseSpa(spa =>
-            //{
-            //    // To learn more about options for serving an Angular SPA from ASP.NET Core,
-            //    // see https://go.microsoft.com/fwlink/?linkid=864501
-
-            //    spa.Options.SourcePath = "../AngularApp";
-            //    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
-            //    if (env.IsDevelopment())
-            //    {
-            //        spa.UseAngularCliServer(npmScript: "start");
-
-            //    }
-            //});
         }
     }
 
