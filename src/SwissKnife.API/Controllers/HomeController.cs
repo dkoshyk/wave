@@ -6,20 +6,8 @@ namespace SwissKnife.API.Controllers
     /// <summary>
     ///     Swagger Docs
     /// </summary>
-    //[SwaggerResponse(HttpStatusCode.NotFound, "Could not find the person", typeof(ErrorResponse))]
     public class HomeController : Controller
     {
-        // GET
-        /// <summary>
-        ///     Return view
-        /// </summary>
-        /// <returns>View result</returns>
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         /// <summary>
         ///     Get item
         /// </summary>

@@ -2,7 +2,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SwissKnife.API.Data.Entities;
 using SwissKnife.Domain.AggregatesModel.ProductAggregate;
 using SwissKnife.Domain.AggregatesModel.UserAggregate;
 using SwissKnife.Domain.SeedWork;
@@ -18,33 +17,14 @@ namespace SwissKnife.Infrastructure
         {
         }
 
-        public DbSet<Poll> Polls { get; set; }
-        public DbSet<PollOption> PollOptions { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<WishProduct> WishProducts { get; set; }
         public DbSet<User> Users { get; set; }
 
-        //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //        {
-        //            optionsBuilder.UseSqlServer(@"Server=KOSH-HP\\SQLEXPRESS;Database=SwissKnifeDB;Integrated Security=True;");
-        //        }
-
         private readonly IMediator _mediator;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Poll>(entity =>
-                entity.ToTable("Polls")
-            );
-
-            modelBuilder.Entity<PollOption>(entity =>
-                entity.HasOne(x => x.Poll)
-                    .WithMany(x => x.PollOptions)
-                    .HasForeignKey(x => x.PollId)
-                    .OnDelete(DeleteBehavior.Restrict)
-            );
-
-            
+        {          
             modelBuilder.Entity<Product>(entity =>
                 entity.ToTable("Products")
             );
@@ -55,8 +35,6 @@ namespace SwissKnife.Infrastructure
                     .WithMany(x => x.WishProducts)
                     .HasForeignKey(x => x.ProductId)
                     .OnDelete(DeleteBehavior.Restrict)
-                //TODO: make relationship
-
             );
 
             modelBuilder.Entity<WishProduct>(entity =>

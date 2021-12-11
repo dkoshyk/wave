@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.421
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwissKnife.API", "src\SwissKnife.API\SwissKnife.API.csproj", "{74B314CF-21DD-4D98-B135-3EAD59BDF24A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{54308C85-488A-4E36-9C9F-21162F163A5D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4574BAFE-86A3-44B4-B2EA-DAE6AA2D11F6}"
@@ -12,9 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4574BAFE-8
 		docs\ReadMe.txt = docs\ReadMe.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissKnife.Domain", "src\SwissKnife.Domain\SwissKnife.Domain.csproj", "{66EECDA8-5E25-48B8-B65F-E906F53536F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwissKnife.Domain", "src\SwissKnife.Domain\SwissKnife.Domain.csproj", "{66EECDA8-5E25-48B8-B65F-E906F53536F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissKnife.Infrastructure", "src\SwissKnife.Infrastructure\SwissKnife.Infrastructure.csproj", "{55DBFA85-6F88-41C1-868F-21C6AA43282E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwissKnife.Infrastructure", "src\SwissKnife.Infrastructure\SwissKnife.Infrastructure.csproj", "{55DBFA85-6F88-41C1-868F-21C6AA43282E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +20,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{74B314CF-21DD-4D98-B135-3EAD59BDF24A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74B314CF-21DD-4D98-B135-3EAD59BDF24A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74B314CF-21DD-4D98-B135-3EAD59BDF24A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74B314CF-21DD-4D98-B135-3EAD59BDF24A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{66EECDA8-5E25-48B8-B65F-E906F53536F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{66EECDA8-5E25-48B8-B65F-E906F53536F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66EECDA8-5E25-48B8-B65F-E906F53536F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,7 +33,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{74B314CF-21DD-4D98-B135-3EAD59BDF24A} = {54308C85-488A-4E36-9C9F-21162F163A5D}
 		{66EECDA8-5E25-48B8-B65F-E906F53536F0} = {54308C85-488A-4E36-9C9F-21162F163A5D}
 		{55DBFA85-6F88-41C1-868F-21C6AA43282E} = {54308C85-488A-4E36-9C9F-21162F163A5D}
 	EndGlobalSection
