@@ -5,11 +5,6 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{54308C85-488A-4E36-9C9F-21162F163A5D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4574BAFE-86A3-44B4-B2EA-DAE6AA2D11F6}"
-	ProjectSection(SolutionItems) = preProject
-		docs\ReadMe.txt = docs\ReadMe.txt
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwissKnife.Domain", "src\SwissKnife.Domain\SwissKnife.Domain.csproj", "{66EECDA8-5E25-48B8-B65F-E906F53536F0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwissKnife.Infrastructure", "src\SwissKnife.Infrastructure\SwissKnife.Infrastructure.csproj", "{55DBFA85-6F88-41C1-868F-21C6AA43282E}"
