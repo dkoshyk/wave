@@ -1,10 +1,7 @@
-﻿using System;
+namespace Api.UserEndpoints;
 
-namespace Api.UserEndpoints
+public record UserListRequest
 {
-    public class UserListRequest
-    {
-        public int Page { get; set; }
-        public int PerPage { get; set; }
-    }
+    public int Page { get; set; }
+    public int PerPage { get; set; }
 }

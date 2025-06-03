@@ -1,16 +1,3 @@
-﻿using System;
+namespace Api.TaskEndpoints;
 
-namespace Api.TaskEndpoints
-{
-    public class TaskItemDto
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Type { get; set; }
-        public string Status { get; set; }
-        public int Priority { get; set; }
-        public DateTime? DeadlineOn { get; set; }
-        public DateTime? ClosedOn { get; set; }
-    }
-}
+public record TaskItemDto(int Id, string Title, string? Description, string? Type, string? Status, int Priority, DateTime? DeadlineOn, DateTime? ClosedOn);
