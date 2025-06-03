@@ -3,27 +3,26 @@ using Api.UserEndpoints;
 using ApplicationCore;
 using AutoMapper;
 
-namespace Api
+namespace Api;
+
+public class AutoMapping : Profile
 {
-    public class AutoMapping : Profile
+    public AutoMapping()
     {
-        public AutoMapping()
-        {
-            CreateMap<CreateTaskCommand, TaskItem>();
-            CreateMap<UpdateTaskCommand, TaskItem>();
+        CreateMap<CreateTaskCommand, TaskItem>();
+        CreateMap<UpdateTaskCommand, TaskItem>();
 
-            CreateMap<TaskItem, CreateTaskResult>();
-            CreateMap<TaskItem, UpdatedTaskResult>();
-            CreateMap<TaskItem, TaskItemDto>();
-            CreateMap<TaskItem, TaskResult>();
+        CreateMap<TaskItem, CreateTaskResult>();
+        CreateMap<TaskItem, UpdatedTaskResult>();
+        CreateMap<TaskItem, TaskItemDto>();
+        CreateMap<TaskItem, TaskResult>();
 
-            CreateMap<CreateUserCommand, User>();
-            CreateMap<UpdateUserCommand, User>();
+        CreateMap<CreateUserCommand, User>();
+        CreateMap<UpdateUserCommand, User>();
 
-            CreateMap<User, CreateUserResult>();
-            CreateMap<User, UpdatedUserResult>();
-            CreateMap<User, UserListResult>();
-            CreateMap<User, UserResult>();
-        }
+        CreateMap<User, CreateUserResult>();
+        CreateMap<User, UpdatedUserResult>();
+        CreateMap<User, UserListResult>();
+        CreateMap<User, UserResult>();
     }
 }

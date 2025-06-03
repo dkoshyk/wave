@@ -1,16 +1,10 @@
-﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.TaskEndpoints
-{
-    public class CreateTaskCommand
-    {
-        [Required]
-        [MaxLength(30)]
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Type { get; set; }
-        public string Status { get; set; }
-        public DateTime? DeadlineOn { get; set; }
-    }
-}
+namespace Api.TaskEndpoints;
+
+public record CreateTaskCommand(
+    [property: Required, MaxLength(30)] string Title,
+    string? Description,
+    string? Type,
+    string? Status,
+    DateTime? DeadlineOn);

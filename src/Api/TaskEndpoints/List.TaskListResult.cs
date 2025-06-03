@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
+namespace Api.TaskEndpoints;
 
-namespace Api.TaskEndpoints
+public record TaskListResult
 {
-    public class TaskListResult
-    {
-        public List<TaskItemDto> Items { get; set; } = new List<TaskItemDto>();
-        public int Count { get; set; }
-    }
+    public List<TaskItemDto> Items { get; set; } = new();
+    public int Count { get; set; }
 }

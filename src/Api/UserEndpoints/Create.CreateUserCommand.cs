@@ -1,12 +1,3 @@
-﻿namespace Api.UserEndpoints
-{
-    public class CreateUserCommand
-    {
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-    }
-}
+namespace Api.UserEndpoints;
+
+public record CreateUserCommand(string Login, string Password, string? Email, string? PhoneNumber, string? FirstName, string? LastName);
